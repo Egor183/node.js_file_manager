@@ -1,6 +1,7 @@
 export const ACTIONS = {
   EXIT: ".exit",
   LS: "ls",
+  CD: "cd",
 };
 
 export const INPUTS = {

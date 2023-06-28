@@ -1,6 +1,7 @@
 import { EOL } from "node:os";
 import { statSync } from "node:fs";
 import { readdir } from "node:fs/promises";
+import path from "node:path";
 import { sortInAlphabeticOrder } from "./utils.js";
 import { CONTENT_TYPES } from "./constants.js";
 
@@ -68,7 +69,13 @@ export const printTable = (content) => {
   console.table(data);
 };
 
-export const handleReaddir = async () => {
+export const handleLS = async () => {
   const content = await getSortedDirContent();
   printTable(content);
+};
+
+// CD
+
+export const handleCD = (directory) => {
+  process.chdir(path.resolve(directory));
 };

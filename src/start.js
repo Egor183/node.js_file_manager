@@ -4,7 +4,8 @@ import {
   handleExit,
   printGreeting,
   getName,
-  handleReaddir,
+  handleLS,
+  handleCD,
 } from "./helpers.js";
 import { ACTIONS, INPUTS } from "./constants.js";
 
@@ -23,14 +24,17 @@ const startFileManager = async () => {
 
   process.stdin.on("data", async (data) => {
     try {
-      const dataWithoutSpacesAndNewLines = data.replace(/\s/g, "");
+      const [command, args] = data.trim().split(" ");
 
-      switch (dataWithoutSpacesAndNewLines) {
+      switch (command) {
         case ACTIONS.EXIT:
           handleExit(name);
           break;
         case ACTIONS.LS:
-          await handleReaddir();
+          await handleLS();
+          break;
+        case ACTIONS.CD:
+          await handleCD(args);
           break;
         default:
           process.stdout.write(INPUTS.INVALID_COMMAND + EOL);
