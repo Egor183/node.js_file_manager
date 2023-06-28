@@ -1,4 +1,8 @@
 import { EOL } from "node:os";
+import { statSync } from "node:fs";
+import { readdir } from "node:fs/promises";
+import { sortInAlphabeticOrder } from "./utils.js";
+import { CONTENT_TYPES } from "./constants.js";
 
 export const getName = () => {
   const nameArg = process.argv[3];
@@ -14,9 +18,57 @@ export const printCurrentDirectoryPath = () => {
   process.stdout.write(`You are currently in ${process.cwd()}` + EOL);
 };
 
+// EXIT
+
 export const handleExit = (name, isNewLine) => {
   process.stdout.write(
     `${isNewLine ? EOL : ""}Thank you for using File Manager, ${name}, goodbye!`
   );
   process.exit();
+};
+
+// LS
+
+const getSortedDirContent = async () => {
+  const content = await readdir(process.cwd());
+
+  const { directories, files } = content.reduce(
+    (res, acc) => {
+      const isDirectory = statSync(acc).isDirectory();
+      isDirectory
+        ? res.directories.push({
+            value: acc,
+            type: CONTENT_TYPES.DIRECTORY,
+          })
+        : res.files.push({
+            value: acc,
+            type: CONTENT_TYPES.FILE,
+          });
+
+      return res;
+    },
+    {
+      directories: [],
+      files: [],
+    }
+  );
+
+  return [
+    ...sortInAlphabeticOrder(directories),
+    ...sortInAlphabeticOrder(files),
+  ];
+};
+
+export const printTable = (content) => {
+  const data = content.map((item) => ({
+    Name: item.value,
+    Type: item.type,
+  }));
+
+  console.table(data);
+};
+
+export const handleReaddir = async () => {
+  const content = await getSortedDirContent();
+  printTable(content);
 };
