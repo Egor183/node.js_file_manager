@@ -2,6 +2,7 @@ export const ACTIONS = {
   EXIT: ".exit",
   LS: "ls",
   CD: "cd",
+  UP: "up",
 };
 
 export const INPUTS = {

@@ -79,3 +79,9 @@ export const handleLS = async () => {
 export const handleCD = (directory) => {
   process.chdir(path.resolve(directory));
 };
+
+// UP
+
+export const handleUP = () => {
+  process.chdir(path.resolve(process.cwd(), ".."));
+};
