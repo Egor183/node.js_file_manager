@@ -1,5 +1,5 @@
 import { EOL } from "node:os";
-import { statSync } from "node:fs";
+import { createReadStream, statSync } from "node:fs";
 import { readdir } from "node:fs/promises";
 import path from "node:path";
 import { sortInAlphabeticOrder } from "./utils.js";
@@ -84,4 +84,12 @@ export const handleCD = (directory) => {
 
 export const handleUP = () => {
   process.chdir(path.resolve(process.cwd(), ".."));
+};
+
+// CUT
+
+export const handleCUT = (filePath) => {
+  console.log(path.resolve(filePath));
+  const readStream = createReadStream(path.resolve(filePath));
+  readStream.pipe(process.stdout);
 };

@@ -3,6 +3,7 @@ export const ACTIONS = {
   LS: "ls",
   CD: "cd",
   UP: "up",
+  CUT: "cut",
 };
 
 export const INPUTS = {
