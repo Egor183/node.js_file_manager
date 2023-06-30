@@ -8,6 +8,7 @@ import {
   handleCD,
   handleUP,
   handleCUT,
+  handleADD,
 } from "./helpers.js";
 import { ACTIONS, INPUTS } from "./constants.js";
 
@@ -43,6 +44,9 @@ const startFileManager = async () => {
           break;
         case ACTIONS.CUT:
           handleCUT(args);
+          break;
+        case ACTIONS.ADD:
+          handleADD(args);
           break;
         default:
           process.stdout.write(INPUTS.INVALID_COMMAND + EOL);

@@ -4,6 +4,7 @@ export const ACTIONS = {
   CD: "cd",
   UP: "up",
   CUT: "cut",
+  ADD: "add",
 };
 
 export const INPUTS = {
