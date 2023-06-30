@@ -1,6 +1,6 @@
 import { EOL } from "node:os";
 import { createReadStream, statSync } from "node:fs";
-import { readdir } from "node:fs/promises";
+import { readdir, rename } from "node:fs/promises";
 import path from "node:path";
 import { writeFile } from "node:fs/promises";
 import { sortInAlphabeticOrder } from "./utils.js";
@@ -90,7 +90,6 @@ export const handleUP = () => {
 // CUT
 
 export const handleCUT = (filePath) => {
-  console.log(path.resolve(filePath));
   const readStream = createReadStream(path.resolve(filePath));
   readStream.pipe(process.stdout);
 };
@@ -99,4 +98,12 @@ export const handleCUT = (filePath) => {
 
 export const handleADD = async (filename) => {
   await writeFile(filename, "");
+};
+
+// RM
+
+export const handleRN = async (oldFilePath, newFileName) => {
+  const newFileAbsolutePath = path.resolve(oldFilePath, "..", newFileName);
+  const oldFileAbsolutePath = path.resolve(oldFilePath);
+  await rename(oldFileAbsolutePath, newFileAbsolutePath);
 };

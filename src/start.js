@@ -9,6 +9,7 @@ import {
   handleUP,
   handleCUT,
   handleADD,
+  handleRN,
 } from "./helpers.js";
 import { ACTIONS, INPUTS } from "./constants.js";
 
@@ -27,7 +28,7 @@ const startFileManager = async () => {
 
   process.stdin.on("data", async (data) => {
     try {
-      const [command, args] = data.trim().split(" ");
+      const [command, ...args] = data.trim().split(" ");
 
       switch (command) {
         case ACTIONS.EXIT:
@@ -37,25 +38,28 @@ const startFileManager = async () => {
           await handleLS();
           break;
         case ACTIONS.CD:
-          handleCD(args);
+          handleCD(...args);
           break;
         case ACTIONS.UP:
           handleUP();
           break;
         case ACTIONS.CUT:
-          handleCUT(args);
+          handleCUT(...args);
           break;
         case ACTIONS.ADD:
-          handleADD(args);
+          handleADD(...args);
+          break;
+        case ACTIONS.RN:
+          await handleRN(...args);
           break;
         default:
           process.stdout.write(INPUTS.INVALID_COMMAND + EOL);
       }
-
-      printCurrentDirectoryPath();
     } catch (e) {
       console.log(e);
       // process.stdout.write(INPUTS.ERROR + EOL);
+    } finally {
+      printCurrentDirectoryPath();
     }
   });
 };
