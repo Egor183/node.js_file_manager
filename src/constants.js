@@ -6,6 +6,7 @@ export const ACTIONS = {
   CUT: "cut",
   ADD: "add",
   RN: "rn",
+  CP: "cp",
 };
 
 export const INPUTS = {

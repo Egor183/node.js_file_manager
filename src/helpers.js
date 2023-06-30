@@ -1,5 +1,5 @@
 import { EOL } from "node:os";
-import { createReadStream, statSync } from "node:fs";
+import { createReadStream, createWriteStream, statSync } from "node:fs";
 import { readdir, rename } from "node:fs/promises";
 import path from "node:path";
 import { writeFile } from "node:fs/promises";
@@ -106,4 +106,12 @@ export const handleRN = async (oldFilePath, newFileName) => {
   const newFileAbsolutePath = path.resolve(oldFilePath, "..", newFileName);
   const oldFileAbsolutePath = path.resolve(oldFilePath);
   await rename(oldFileAbsolutePath, newFileAbsolutePath);
+};
+
+// CP
+
+export const handleCP = (oldFilePath, newFileName) => {
+  const readStream = createReadStream(path.resolve(oldFilePath));
+  const writeStream = createWriteStream(path.resolve(newFileName));
+  readStream.pipe(writeStream);
 };
