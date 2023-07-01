@@ -13,6 +13,7 @@ import {
   handleCP,
   handleMV,
   handleRM,
+  handleOS,
 } from "./helpers.js";
 import { ACTIONS, INPUTS } from "./constants.js";
 
@@ -32,6 +33,8 @@ const startFileManager = async () => {
   process.stdin.on("data", async (data) => {
     try {
       const [command, ...args] = data.trim().split(" ");
+
+      console.log(command, ...args);
 
       switch (command) {
         case ACTIONS.EXIT:
@@ -63,6 +66,9 @@ const startFileManager = async () => {
           break;
         case ACTIONS.RM:
           await handleRM(...args);
+          break;
+        case ACTIONS.OS:
+          await handleOS(...args);
           break;
         default:
           process.stdout.write(INPUTS.INVALID_COMMAND + EOL);

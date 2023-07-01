@@ -3,7 +3,7 @@ import { createReadStream, createWriteStream, statSync } from "node:fs";
 import { readdir, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { sortInAlphabeticOrder } from "./utils.js";
-import { CONTENT_TYPES } from "./constants.js";
+import { CONTENT_TYPES, INPUTS, OS_FLAGS } from "./constants.js";
 
 export const getName = () => {
   const nameArg = process.argv[3];
@@ -127,4 +127,20 @@ export const handleRM = async (filePath) => {
 export const handleMV = async (oldFilePath, newFilePath) => {
   handleCP(oldFilePath, newFilePath);
   await handleRM(oldFilePath);
+};
+
+// OS
+
+export const handleOS = (flag) => {
+  switch (flag) {
+    case OS_FLAGS.EOL:
+      handleEOL();
+      break;
+    default:
+      process.stdout.write(INPUTS.INVALID_COMMAND + EOL);
+  }
+};
+
+const handleEOL = () => {
+  console.log(EOL);
 };

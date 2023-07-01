@@ -9,7 +9,10 @@ export const ACTIONS = {
   CP: "cp",
   MV: "mv",
   RM: "rm",
+  OS: "os",
 };
+
+export const OS_FLAGS = { EOL: "--EOL" };
 
 export const INPUTS = {
   INVALID_COMMAND: "Invalid input",
