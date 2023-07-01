@@ -11,6 +11,7 @@ import {
   handleADD,
   handleRN,
   handleCP,
+  handleMV,
 } from "./helpers.js";
 import { ACTIONS, INPUTS } from "./constants.js";
 
@@ -55,6 +56,9 @@ const startFileManager = async () => {
           break;
         case ACTIONS.CP:
           await handleCP(...args);
+          break;
+        case ACTIONS.MV:
+          await handleMV(...args);
           break;
         default:
           process.stdout.write(INPUTS.INVALID_COMMAND + EOL);

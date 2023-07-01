@@ -1,8 +1,7 @@
 import { EOL } from "node:os";
 import { createReadStream, createWriteStream, statSync } from "node:fs";
-import { readdir, rename } from "node:fs/promises";
+import { readdir, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { writeFile } from "node:fs/promises";
 import { sortInAlphabeticOrder } from "./utils.js";
 import { CONTENT_TYPES } from "./constants.js";
 
@@ -102,8 +101,8 @@ export const handleADD = async (filename) => {
 
 // RM
 
-export const handleRN = async (oldFilePath, newFileName) => {
-  const newFileAbsolutePath = path.resolve(oldFilePath, "..", newFileName);
+export const handleRN = async (oldFilePath, newFilePath) => {
+  const newFileAbsolutePath = path.resolve(newFilePath);
   const oldFileAbsolutePath = path.resolve(oldFilePath);
   await rename(oldFileAbsolutePath, newFileAbsolutePath);
 };
@@ -114,4 +113,13 @@ export const handleCP = (oldFilePath, newFileName) => {
   const readStream = createReadStream(path.resolve(oldFilePath));
   const writeStream = createWriteStream(path.resolve(newFileName));
   readStream.pipe(writeStream);
+};
+
+// MV
+
+export const handleMV = async (oldFilePath, newFilePath) => {
+  const oldFileAbsolutePath = path.resolve(oldFilePath);
+  const newFileAbsolutePath = path.resolve(newFilePath);
+  handleCP(oldFileAbsolutePath, newFileAbsolutePath);
+  await rm(oldFileAbsolutePath);
 };

@@ -7,6 +7,7 @@ export const ACTIONS = {
   ADD: "add",
   RN: "rn",
   CP: "cp",
+  MV: "mv",
 };
 
 export const INPUTS = {
