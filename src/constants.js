@@ -8,6 +8,7 @@ export const ACTIONS = {
   RN: "rn",
   CP: "cp",
   MV: "mv",
+  RM: "rm",
 };
 
 export const INPUTS = {

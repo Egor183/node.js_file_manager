@@ -115,11 +115,16 @@ export const handleCP = (oldFilePath, newFileName) => {
   readStream.pipe(writeStream);
 };
 
+// RM
+
+export const handleRM = async (filePath) => {
+  const fileAbsolutePath = path.resolve(filePath);
+  await rm(fileAbsolutePath);
+};
+
 // MV
 
 export const handleMV = async (oldFilePath, newFilePath) => {
-  const oldFileAbsolutePath = path.resolve(oldFilePath);
-  const newFileAbsolutePath = path.resolve(newFilePath);
-  handleCP(oldFileAbsolutePath, newFileAbsolutePath);
-  await rm(oldFileAbsolutePath);
+  handleCP(oldFilePath, newFilePath);
+  await handleRM(oldFilePath);
 };
