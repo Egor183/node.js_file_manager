@@ -34,8 +34,6 @@ const startFileManager = async () => {
     try {
       const [command, ...args] = data.trim().split(" ");
 
-      console.log(command, ...args);
-
       switch (command) {
         case ACTIONS.EXIT:
           handleExit(name);
