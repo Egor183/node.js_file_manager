@@ -17,6 +17,7 @@ export const OS_FLAGS = {
   CPUS: "--cpus",
   HOMEDIR: "--homedir",
   USERNAME: "--username",
+  ARCHITECTURE: "--architecture",
 };
 
 export const INPUTS = {
