@@ -10,6 +10,7 @@ export const ACTIONS = {
   MV: "mv",
   RM: "rm",
   OS: "os",
+  HASH: "hash",
 };
 
 export const OS_FLAGS = {

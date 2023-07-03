@@ -1,7 +1,8 @@
 import { EOL, cpus, homedir, userInfo, arch } from "node:os";
 import { createReadStream, createWriteStream, statSync } from "node:fs";
-import { readdir, rename, rm, writeFile } from "node:fs/promises";
+import { readdir, rename, rm, writeFile, readFile } from "node:fs/promises";
 import path from "node:path";
+import { createHash } from "node:crypto";
 import { sortInAlphabeticOrder } from "./utils.js";
 import { CONTENT_TYPES, INPUTS, OS_FLAGS } from "./constants.js";
 
@@ -171,4 +172,13 @@ const handleUSERNAME = () => {
 
 const handleARCHITECTURE = () => {
   console.log(arch());
+};
+
+// HASH
+
+export const handleHASH = async (filePath) => {
+  const data = await readFile(path.resolve(filePath));
+
+  let hex = createHash("sha256").update(data).digest("hex");
+  console.log(hex);
 };
