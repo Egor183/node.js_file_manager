@@ -1,4 +1,4 @@
-import { EOL } from "node:os";
+import { EOL, cpus } from "node:os";
 import { createReadStream, createWriteStream, statSync } from "node:fs";
 import { readdir, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -136,6 +136,9 @@ export const handleOS = (flag) => {
     case OS_FLAGS.EOL:
       handleEOL();
       break;
+    case OS_FLAGS.CPUS:
+      handleCPUS();
+      break;
     default:
       process.stdout.write(INPUTS.INVALID_COMMAND + EOL);
   }
@@ -143,4 +146,8 @@ export const handleOS = (flag) => {
 
 const handleEOL = () => {
   console.log(EOL);
+};
+
+const handleCPUS = () => {
+  console.log(cpus());
 };

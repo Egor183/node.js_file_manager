@@ -12,7 +12,7 @@ export const ACTIONS = {
   OS: "os",
 };
 
-export const OS_FLAGS = { EOL: "--EOL" };
+export const OS_FLAGS = { EOL: "--EOL", CPUS: "--cpus" };
 
 export const INPUTS = {
   INVALID_COMMAND: "Invalid input",
