@@ -3,8 +3,13 @@ import { createReadStream, createWriteStream, statSync } from "node:fs";
 import { readdir, rename, rm, writeFile, readFile } from "node:fs/promises";
 import path from "node:path";
 import { createHash } from "node:crypto";
+import { promisify } from "node:util";
+import { pipeline } from "node:stream";
+import { createGzip } from "node:zlib";
 import { sortInAlphabeticOrder } from "./utils.js";
 import { CONTENT_TYPES, INPUTS, OS_FLAGS } from "./constants.js";
+
+const promisifiedPipeline = promisify(pipeline);
 
 export const getName = () => {
   const nameArg = process.argv[3];
@@ -181,4 +186,13 @@ export const handleHASH = async (filePath) => {
 
   let hex = createHash("sha256").update(data).digest("hex");
   console.log(hex);
+};
+
+// COMPRESS
+
+export const handleCOMPRESS = async (pathToFile, pathToArchive) => {
+  const inputStream = createReadStream(pathToFile);
+  const outputStream = createWriteStream(pathToArchive);
+  const gzip = createGzip();
+  await promisifiedPipeline(inputStream, gzip, outputStream);
 };

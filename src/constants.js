@@ -11,6 +11,7 @@ export const ACTIONS = {
   RM: "rm",
   OS: "os",
   HASH: "hash",
+  COMPRESS: "compress",
 };
 
 export const OS_FLAGS = {
