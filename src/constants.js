@@ -12,6 +12,7 @@ export const ACTIONS = {
   OS: "os",
   HASH: "hash",
   COMPRESS: "compress",
+  DECOMPRESS: "decompress",
 };
 
 export const OS_FLAGS = {

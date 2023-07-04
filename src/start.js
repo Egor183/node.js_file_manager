@@ -16,6 +16,7 @@ import {
   handleOS,
   handleHASH,
   handleCOMPRESS,
+  handleDECOMPRESS,
 } from "./helpers.js";
 import { ACTIONS, INPUTS } from "./constants.js";
 
@@ -75,6 +76,9 @@ const startFileManager = async () => {
           break;
         case ACTIONS.COMPRESS:
           await handleCOMPRESS(...args);
+          break;
+        case ACTIONS.DECOMPRESS:
+          await handleDECOMPRESS(...args);
           break;
         default:
           process.stdout.write(INPUTS.INVALID_COMMAND + EOL);

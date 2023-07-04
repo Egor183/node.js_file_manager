@@ -5,7 +5,7 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 import { promisify } from "node:util";
 import { pipeline } from "node:stream";
-import { createGzip } from "node:zlib";
+import { createGunzip, createGzip } from "node:zlib";
 import { sortInAlphabeticOrder } from "./utils.js";
 import { CONTENT_TYPES, INPUTS, OS_FLAGS } from "./constants.js";
 
@@ -191,8 +191,17 @@ export const handleHASH = async (filePath) => {
 // COMPRESS
 
 export const handleCOMPRESS = async (pathToFile, pathToArchive) => {
-  const inputStream = createReadStream(pathToFile);
-  const outputStream = createWriteStream(pathToArchive);
+  const readStream = createReadStream(path.resolve(pathToFile));
+  const writeStream = createWriteStream(path.resolve(pathToArchive));
   const gzip = createGzip();
-  await promisifiedPipeline(inputStream, gzip, outputStream);
+  await promisifiedPipeline(readStream, gzip, writeStream);
+};
+
+// DECOMPRESS
+
+export const handleDECOMPRESS = async (pathToArchive, pathToFile) => {
+  const readStream = createReadStream(path.resolve(pathToArchive));
+  const writeStream = createWriteStream(path.resolve(pathToFile));
+  const gunzip = createGunzip();
+  await promisifiedPipeline(readStream, gunzip, writeStream);
 };
