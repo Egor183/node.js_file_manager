@@ -1,9 +1,9 @@
-export const ACTIONS = {
+export const COMMANDS = {
   EXIT: ".exit",
   LS: "ls",
   CD: "cd",
   UP: "up",
-  CUT: "cut",
+  CAT: "cat",
   ADD: "add",
   RN: "rn",
   CP: "cp",
@@ -15,20 +15,7 @@ export const ACTIONS = {
   DECOMPRESS: "decompress",
 };
 
-export const OS_FLAGS = {
-  EOL: "--EOL",
-  CPUS: "--cpus",
-  HOMEDIR: "--homedir",
-  USERNAME: "--username",
-  ARCHITECTURE: "--architecture",
-};
-
 export const INPUTS = {
   INVALID_COMMAND: "Invalid input",
   ERROR: "Operation failed",
-};
-
-export const CONTENT_TYPES = {
-  DIRECTORY: "directory",
-  FILE: "file",
 };
